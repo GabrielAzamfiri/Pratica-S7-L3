@@ -38,11 +38,11 @@ fetch("https://striveschool-api.herokuapp.com/books")
       btnDelete.classList.add("btn");
       btnDelete.classList.add("btn-danger");
       btnDelete.classList.add("my-3");
-
       btnDelete.textContent = "Delete Book";
       btnDelete.addEventListener("click", () => {
-        col.classList.add("d-none");
+        col.remove();
       });
+
       const addToCart = document.createElement("button");
       addToCart.classList.add("btn");
       addToCart.classList.add("btn-primary");
@@ -56,11 +56,21 @@ fetch("https://striveschool-api.herokuapp.com/books")
         cartItem.classList.add("list-group-item");
         cartItem.classList.add("my-2");
         cartItem.textContent = book.title;
+        const btnDeleteCart = document.createElement("button");
+        btnDeleteCart.classList.add("btn");
+        btnDeleteCart.classList.add("btn-danger");
+        btnDeleteCart.classList.add("ms-5");
+
+        btnDeleteCart.textContent = "Delete Book";
+        btnDeleteCart.addEventListener("click", () => {
+          cartItem.remove();
+          carrello.splice(carrello.indexOf(book.title), 1);
+          localStorage.setItem("carrello", JSON.stringify(carrello));
+        });
         carrello.push(book.title);
         localStorage.setItem("carrello", JSON.stringify(carrello));
-
+        cartItem.appendChild(btnDeleteCart);
         cart.append(cartItem);
-        console.log(cartItem);
       });
 
       cardBody.append(cardTitle, cardText, btnDelete, addToCart);
@@ -85,9 +95,20 @@ window.addEventListener("DOMContentLoaded", () => {
       cartItem.classList.add("list-group-item");
       cartItem.classList.add("my-2");
       cartItem.textContent = item;
+      const btnDeleteCart = document.createElement("button");
+      btnDeleteCart.classList.add("btn");
+      btnDeleteCart.classList.add("btn-danger");
+      btnDeleteCart.classList.add("ms-5");
+
+      btnDeleteCart.textContent = "Delete Book";
+      btnDeleteCart.addEventListener("click", () => {
+        cartItem.remove();
+        carrello.splice(carrello.indexOf(item), 1);
+        localStorage.setItem("carrello", JSON.stringify(carrello));
+      });
+      cartItem.appendChild(btnDeleteCart);
 
       cart.append(cartItem);
-      console.log(cartItem);
     });
   }
 });
