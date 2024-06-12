@@ -72,10 +72,11 @@ fetch("https://striveschool-api.herokuapp.com/books")
   .catch((err) => console.log(err));
 
 window.addEventListener("DOMContentLoaded", () => {
-  const carrello = localStorage.getItem("carrello");
-  if (carrello) {
+  const storedCarrello = localStorage.getItem("carrello");
+  if (storedCarrello) {
     // se ho trovato il nome saremo qui dentro
-    const arrCarrello = JSON.parse(carrello);
+    const arrCarrello = JSON.parse(storedCarrello);
+    carrello = arrCarrello;
     arrCarrello.forEach((item) => {
       const cart = document.getElementById("cart");
       cart.classList.add("row");
